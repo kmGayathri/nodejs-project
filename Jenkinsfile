@@ -1,13 +1,13 @@
-def registry = 'https://valaxy02.jfrog.io'
-def imageName = 'valaxy02.jfrog.io/nodejs-docker/demo-nodejs'
+def registry = 'https://gayathrik.jfrog.io'
+def imageName = 'gayathrik.jfrog.io/npm-docker-local/demo-nodejs'
 def version   = '1.0.2'
 pipeline{
     agent {
         node {
-            label "valaxy"
+            label "Jenkins _Slave"
         }
     }
-    tools {nodejs 'nodejs-16'}
+    tools {nodejs 'Nodejs'}
 
     stages {
         stage('build') {
@@ -24,8 +24,7 @@ pipeline{
                 sh 'npm test'
                 echo '<------------- Unit Testing stopped  --------------->'
             }
-        }
-
+        }    
 stage(" Docker Build ") {
       steps {
         script {
@@ -40,19 +39,15 @@ stage(" Docker Build ") {
         steps {
             script {
                echo '<--------------- Docker Publish Started --------------->'  
-                docker.withRegistry(registry, 'jfrog-access'){
+                docker.withRegistry(registry, 'Jfrog-npm')
+                {
                     app.push()
+             
                 }    
                echo '<--------------- Docker Publish Ended --------------->'  
             }
         }
     }
-            stage('Deployment') {
-            steps {
-                echo '<--------------- deployment started  --------------->'
-                sh './deploy.sh'
-                echo '<------------- deployment stopped  --------------->'
-            }
-        }  
+           
     }
-    }
+}    
