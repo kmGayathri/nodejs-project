@@ -4,7 +4,7 @@ def version   = '1.0.2'
 pipeline{
     agent {
         node {
-            label "Jenkins _Slave"
+            label "Nodejs"
         }
     }
     tools {nodejs 'Nodejs'}
